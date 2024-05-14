@@ -28,7 +28,7 @@ from fms_fsdp.utils.train_utils import (
     setup,
     setup_environ_flags,
 )
-from speculator.train_speculator_utils import EmbedLLaMA, train_speculator
+from speculator.train_speculator_utils import EmbedLLaMA, train_speculator , EmbedGPTBigCode
 
 llama_3_config = LLaMAConfig(
     src_vocab_size=128256,
