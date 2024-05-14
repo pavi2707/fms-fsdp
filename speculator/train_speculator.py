@@ -9,7 +9,7 @@ import torch.optim as optim
 from transformers import AutoTokenizer
 
 from fms.models import get_model, register_model
-#from fms.models.llama import LLaMABlock, LLaMAConfig , GPTBigCodeBlock
+from fms.models.llama import LLaMABlock, LLaMAConfig
 from fms.models.gpt_bigcode import  GPTBigCodeBlock
 from fms.utils import serialization, generation, tokenizers
 from fms.utils.generation import generate
