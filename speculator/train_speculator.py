@@ -134,8 +134,8 @@ def main(**kwargs):
 
     # get base model
     model = get_model(
-        "embedllama",
-        "8b",
+        "embedgpt_bigcode",
+        "34b",
         model_path=f"{cfg.model_path}/*.safetensors",
         device_type="cuda",
         source="hf",
