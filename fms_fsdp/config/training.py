@@ -12,7 +12,7 @@ class train_config:
     # dataset and dataloader
     use_dummy_dataset: bool = False
     data_path: str = "/lustre/data"
-    seq_length: int = 8192
+    seq_length: int = 4096
     sep_token: int = 1
     datasets: str = "lang=en/dataset=commoncrawl,lang=en/dataset=webhose,lang=en/dataset=github_clean,lang=de/dataset=wikipedia,lang=es/dataset=wikipedia,lang=fr/dataset=wikipedia,lang=ja/dataset=wikipedia,lang=pt/dataset=wikipedia,lang=en/dataset=wikimedia,lang=en/dataset=uspto,lang=en/dataset=pubmedcentral,lang=en/dataset=arxiv,lang=en/dataset=stackexchange,lang=en/dataset=PG19"
     weights: str = "7700,500,550,28,17,22,25,8,100,500,175,250,100,25"
