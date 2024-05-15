@@ -49,7 +49,7 @@ class train_config:
 
     # speculator training
     model_path: str = "/lustre/llama_weights/8B-llama3-hf"
-    n_speculator_heads: int = 3
+    n_speculator_heads: int = 6
     speculator_width: int = 4096
     stage2_start_step: int = 15000
     stage2_prompt_length: int = 64
