@@ -141,7 +141,7 @@ def main(**kwargs):
         model_path=f"{cfg.model_path}/*.safetensors",
         device_type="cuda",
         source="hf",
-        distributed_strategy=cfg.sharding_strategy,
+        #distributed_strategy=cfg.sharding_strategy,
     )
     model = model.bfloat16()
     model = FSDP(
