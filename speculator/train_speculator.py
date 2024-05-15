@@ -136,7 +136,7 @@ def main(**kwargs):
     # get base model
     model = get_model(
         "embedgpt_bigcode",
-        "34b",
+        "20b",
         #model_path=cfg.model_path,
         model_path=f"{cfg.model_path}/*.safetensors",
         device_type="cuda",
@@ -144,21 +144,21 @@ def main(**kwargs):
         distributed_strategy=cfg.sharding_strategy,
     )
     model = model.bfloat16()
-    #model = FSDP(
-        #model,
-        #auto_wrap_policy=wrapping_policy,
-        #mixed_precision=mixed_precision_policy,
-        #sharding_strategy=sharding_strategy_policy,
-        #use_orig_params=cfg.use_torch_compile,
-        #device_id=torch.cuda.current_device(),
-        #limit_all_gathers=True,
-        #sync_module_states=cfg.low_cpu_fsdp,
-        #param_init_fn=lambda module: (
-            #module.to_empty(device=torch.device("cuda"), recurse=False)
-            #if cfg.low_cpu_fsdp
-            #else None
-        #),
-    #)
+    model = FSDP(
+        model,
+        auto_wrap_policy=wrapping_policy,
+        mixed_precision=mixed_precision_policy,
+        sharding_strategy=sharding_strategy_policy,
+        use_orig_params=cfg.use_torch_compile,
+        device_id=torch.cuda.current_device(),
+        limit_all_gathers=True,
+        sync_module_states=cfg.low_cpu_fsdp,
+        param_init_fn=lambda module: (
+            module.to_empty(device=torch.device("cuda"), recurse=False)
+            if cfg.low_cpu_fsdp
+            else None
+        ),
+    )
 
     tokenizer = tokenizers.get_tokenizer(cfg.model_path)
     template = "Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n### Instruction:\n{}\n\n### Response:"
