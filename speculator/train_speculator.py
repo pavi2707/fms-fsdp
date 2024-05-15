@@ -137,8 +137,8 @@ def main(**kwargs):
     model = get_model(
         "embedgpt_bigcode",
         "34b",
-        model_path=cfg.model_path,
-        #model_path=f"{cfg.model_path}/*.safetensors",
+        #model_path=cfg.model_path,
+        model_path=f"{cfg.model_path}/*.safetensors",
         device_type="cuda",
         source="hf",
         distributed_strategy=cfg.sharding_strategy,
