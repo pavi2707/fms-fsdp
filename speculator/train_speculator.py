@@ -176,7 +176,7 @@ def main(**kwargs):
     result = generation.generate(
         model,
         ids,
-        max_new_tokens=100,
+        max_new_tokens=200,
         use_cache=True,
         do_sample=False,
         max_seq_len=8192,
