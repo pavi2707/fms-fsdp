@@ -138,7 +138,7 @@ def main(**kwargs):
     # get base model
     model = get_model(
         "embedgpt_bigcode",
-        "20b",
+        "34b",
         #model_path=cfg.model_path,
         model_path=f"{cfg.model_path}/*.safetensors",
         device_type="cuda",
