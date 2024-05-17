@@ -120,11 +120,11 @@ def main(**kwargs):
 
     # some setups
     setup()
-    #torch._C._distributed_c10d._register_process_group("default", dist.group.WORLD)
+    torch._C._distributed_c10d._register_process_group("default", dist.group.WORLD)
     torch.cuda.set_device(local_rank)
     torch.cuda.empty_cache()
     setup_environ_flags()
-    #torch.set_default_dtype(torch.bfloat16)
+    torch.set_default_dtype(torch.bfloat16)
     def test_model(rank, model, arch, cfg):
     print("testing model output")
     tokenizer = tokenizers.get_tokenizer(cfg.model_path)
