@@ -161,7 +161,7 @@ def main(**kwargs):
         apply_selective_ac,
         param_init_fn,
     ) = get_policies(cfg, rank, GPTBigCodeBlock)
-
+    arch = "embedgpt_bigcode"
     # get base model
     model = get_model(
         "embedgpt_bigcode",
