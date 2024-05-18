@@ -126,7 +126,34 @@ def main(**kwargs):
     torch.cuda.empty_cache()
     setup_environ_flags()
     #torch.set_default_dtype(torch.bfloat16)
-    
+    def test_model(rank, model, arch, cfg):
+        print("testing model output")
+        tokenizer = tokenizers.get_tokenizer(cfg.model_path)
+        template = "Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n### Instruction:\n{}\n\n### Response:"
+
+        prompt = template.format(
+            "Provide a list of instructions for preparing chicken soup."
+        )
+        tokens = tokenizer.tokenize(prompt)
+        ids = tokenizer.convert_tokens_to_ids(tokens)
+        if 'llama' in arch:
+            ids = [tokenizer.bos_token_id] + ids
+        ids = torch.tensor(ids, dtype=torch.long, device="cuda")
+        print("calling generate")
+        result = generation.generate(
+            model,
+            ids,
+            max_new_tokens=100,
+            use_cache=True,
+            do_sample=False,
+            max_seq_len=8192,
+        )
+        print("generate done")
+        result = generation.truncate_after_eos(result, tokenizer.eos_token_id)
+        if rank == 0:
+            print("quick test of base model")
+            print(tokenizer.convert_tokens_to_string(tokenizer.convert_ids_to_tokens(result)))
+
 
     # get policy
     (
@@ -147,7 +174,12 @@ def main(**kwargs):
         source="hf",
         #distributed_strategy=cfg.sharding_strategy,
     )
+    arch = "embedcalico"
     model = model.bfloat16()
+    print(model)
+    model.eval()
+    torch.set_grad_enabled(False)
+    test_model(rank, model, arch, cfg)
     model = FSDP(
         model,
         auto_wrap_policy=wrapping_policy,
