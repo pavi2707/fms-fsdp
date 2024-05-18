@@ -296,6 +296,7 @@ def main(**kwargs):
                     "compile."
                 )
         model = torch.compile(model)
+        torch._dynamo.config.cache_size_limit=2048
         speculator = torch.compile(speculator)
 
     # Optimizer
