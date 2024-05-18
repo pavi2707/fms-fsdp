@@ -11,6 +11,7 @@ from transformers import AutoTokenizer
 from fms.models import get_model, register_model
 from fms.models.llama import LLaMABlock, LLaMAConfig
 from fms.models.gpt_bigcode import  GPTBigCodeBlock
+from fms_extras.models.calico import CalicoBlock
 from fms.utils import serialization, generation, tokenizers
 from fms.utils.generation import generate
 from fms_extras.models.speculator import MLPSpeculator  # type: ignore
@@ -134,7 +135,7 @@ def main(**kwargs):
         sharding_strategy_policy,
         apply_selective_ac,
         param_init_fn,
-    ) = get_policies(cfg, rank, GPTBigCodeBlock)
+    ) = get_policies(cfg, rank, CalicoBlock)
 
     # get base model
     model = get_model(
