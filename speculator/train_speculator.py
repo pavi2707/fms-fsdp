@@ -126,6 +126,8 @@ def main(**kwargs):
     torch.cuda.empty_cache()
     setup_environ_flags()
     #torch.set_default_dtype(torch.bfloat16)
+    #for proper testing of the tokenizing output 
+    '''
     def test_model(rank, model, arch, cfg):
         print("testing model output")
         tokenizer = tokenizers.get_tokenizer(cfg.model_path)
@@ -154,7 +156,7 @@ def main(**kwargs):
             print("quick test of base model")
             print(tokenizer.convert_tokens_to_string(tokenizer.convert_ids_to_tokens(result)))
 
-
+    '''
     # get policy
     (
         mixed_precision_policy,
@@ -174,12 +176,12 @@ def main(**kwargs):
         source="hf",
         #distributed_strategy=cfg.sharding_strategy,
     )
-    arch = "embedcalico"
+    #arch = "embedcalico"
     model = model.bfloat16()
-    print(model)
-    model.eval()
-    torch.set_grad_enabled(False)
-    test_model(rank, model, arch, cfg)
+    #print(model)
+    #model.eval()
+    #torch.set_grad_enabled(False)
+    #test_model(rank, model, arch, cfg)
     model = FSDP(
         model,
         auto_wrap_policy=wrapping_policy,
