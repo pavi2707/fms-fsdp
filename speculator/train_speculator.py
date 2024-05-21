@@ -178,7 +178,7 @@ def main(**kwargs):
     )
     #arch = "embedcalico"
     model = model.bfloat16()
-    #print(model)
+    print(model)
     #model.eval()
     #torch.set_grad_enabled(False)
     #test_model(rank, model, arch, cfg)
