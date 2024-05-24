@@ -5,7 +5,7 @@ from typing import Optional, Union
 @dataclass
 class train_config:
     # model
-    model_variant: str = "8b"
+    model_variant: str = "3b"
     ckpt_load_path: str = "/lustre/pretrain/ckpt"
     ckpt_save_path: str = "/lustre/pretrain/ckpt"
 
