@@ -128,7 +128,7 @@ def main(**kwargs):
     #torch.set_default_dtype(torch.bfloat16)
     #for proper testing of the tokenizing output 
     
-    def test_model(rank, model, arch, cfg):
+    '''def test_model(rank, model, arch, cfg):
         print("testing model output")
         tokenizer = tokenizers.get_tokenizer(cfg.model_path)
         template = "Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n### Instruction:\n{}\n\n### Response:"
@@ -154,7 +154,7 @@ def main(**kwargs):
         result = generation.truncate_after_eos(result, tokenizer.eos_token_id)
         if rank == 0:
             print("quick test of base model")
-            print(tokenizer.convert_tokens_to_string(tokenizer.convert_ids_to_tokens(result)))
+            print(tokenizer.convert_tokens_to_string(tokenizer.convert_ids_to_tokens(result)))'''
 
     
     # get policy
@@ -176,12 +176,12 @@ def main(**kwargs):
         source="hf",
         #distributed_strategy=cfg.sharding_strategy,
     )
-    arch = "embedcalico"
+    #arch = "embedcalico"
     model = model.bfloat16()
-    print(model)
-    model.eval()
-    torch.set_grad_enabled(False)
-    test_model(rank, model, arch, cfg)
+    #print(model)
+    #model.eval()
+    #torch.set_grad_enabled(False)
+    #test_model(rank, model, arch, cfg)
     
     model = FSDP(
         model,
