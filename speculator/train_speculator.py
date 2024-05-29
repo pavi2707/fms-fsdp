@@ -169,7 +169,7 @@ def main(**kwargs):
     # get base model
     model = get_model(
         "embedcalico",
-        "3b",
+        "8b",
         #model_path=cfg.model_path,
         model_path=f"{cfg.model_path}/*.safetensors",
         device_type="cuda",
@@ -183,7 +183,7 @@ def main(**kwargs):
     #torch.set_grad_enabled(False)
     #test_model(rank, model, arch, cfg)
     
-    '''model = FSDP(
+    model = FSDP(
         model,
         auto_wrap_policy=wrapping_policy,
         mixed_precision=mixed_precision_policy,
@@ -197,7 +197,7 @@ def main(**kwargs):
             if cfg.low_cpu_fsdp
             else None
         ),
-    )'''
+    )
 
     tokenizer = tokenizers.get_tokenizer(cfg.model_path)
     template = "Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n### Instruction:\n{}\n\n### Response:"
