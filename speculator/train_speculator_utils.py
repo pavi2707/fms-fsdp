@@ -198,7 +198,22 @@ def stage2_loss(cfg, model, speculator, input, loss_fn, ddp_stats):
     loss = sum(losses)
     return loss, ddp_stats, targs.numel()
 
+def do_ckpt(ckpt_save_path, reset=False):
+    ckpt_cmd_file = ckpt_save_path + "/do_ckpt"
+    if not os.path.exists(ckpt_cmd_file):
+        return False
 
+    if reset:
+        with open(ckpt_cmd_file, 'w') as fd:
+            fd.write('0')
+        return False
+
+    with open(ckpt_cmd_file) as fd:
+        if fd.read().strip() == '1':
+            return True
+
+    return False
+    
 def train_speculator(
     cfg: train_config,
     model: nn.Module,
@@ -318,7 +333,17 @@ def train_speculator(
             ddp_stats.zero_()
         torch.cuda.reset_peak_memory_stats(device=torch.cuda.current_device())
 
-        if batch_idx % cfg.checkpoint_interval == 0:
+        '''if batch_idx % cfg.checkpoint_interval == 0:
+            torch.cuda.empty_cache()
+            checkpointer.save(
+                batch_idx,
+                speculator,
+                optimizer,
+                train_loader,
+                tokens_seen=elapsed_tokens + n_tok,
+            )
+            torch.cuda.empty_cache()'''
+        if batch_idx % cfg.checkpoint_interval == 0 or do_ckpt(cfg.ckpt_save_path) is True:
             torch.cuda.empty_cache()
             checkpointer.save(
                 batch_idx,
@@ -328,6 +353,7 @@ def train_speculator(
                 tokens_seen=elapsed_tokens + n_tok,
             )
             torch.cuda.empty_cache()
+            do_ckpt(cfg.ckpt_save_path, reset=True)
 
     checkpointer.save_single_file(
         batch_idx,
@@ -336,21 +362,6 @@ def train_speculator(
     )
 
     return train_loss
-def do_ckpt(ckpt_save_path, reset=False):
-    ckpt_cmd_file = ckpt_save_path + "/do_ckpt"
-    if not os.path.exists(ckpt_cmd_file):
-        return False
-
-    if reset:
-        with open(ckpt_cmd_file, 'w') as fd:
-            fd.write('0')
-        return False
-
-    with open(ckpt_cmd_file) as fd:
-        if fd.read().strip() == '1':
-            return True
-
-    return False
 
 
 class EmbedGPTBigCode(GPTBigCode):
