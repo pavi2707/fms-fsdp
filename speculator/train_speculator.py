@@ -229,6 +229,9 @@ def main(**kwargs):
         cfg.speculator_width,
         model.config.src_vocab_size,
         cfg.n_speculator_heads,
+        tie_emb=True,
+        tie_head=True,
+        tie_transition=True,
     )
     speculator.reset_parameters()
 
