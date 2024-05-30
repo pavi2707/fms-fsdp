@@ -336,6 +336,21 @@ def train_speculator(
     )
 
     return train_loss
+def do_ckpt(ckpt_save_path, reset=False):
+    ckpt_cmd_file = ckpt_save_path + "/do_ckpt"
+    if not os.path.exists(ckpt_cmd_file):
+        return False
+
+    if reset:
+        with open(ckpt_cmd_file, 'w') as fd:
+            fd.write('0')
+        return False
+
+    with open(ckpt_cmd_file) as fd:
+        if fd.read().strip() == '1':
+            return True
+
+    return False
 
 
 class EmbedGPTBigCode(GPTBigCode):
