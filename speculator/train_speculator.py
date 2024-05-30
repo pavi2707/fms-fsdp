@@ -169,7 +169,7 @@ def main(**kwargs):
     # get base model
     model = get_model(
         "embedcalico",
-        "8b",
+        "3b",
         #model_path=cfg.model_path,
         model_path=f"{cfg.model_path}/*.safetensors",
         device_type="cuda",
