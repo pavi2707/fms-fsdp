@@ -216,7 +216,8 @@ def main(**kwargs):
         max_new_tokens=200,
         use_cache=True,
         do_sample=False,
-        max_seq_len=8192,
+        #max_seq_len=8192
+        max_seq_len=2048,
     )
     result = generation.truncate_after_eos(result, tokenizer.eos_token_id)
     if rank == 0:
