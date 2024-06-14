@@ -5,14 +5,15 @@ from typing import Optional, Union
 @dataclass
 class train_config:
     # model
-    model_variant: str = "3b"
+    model_variant: str = "20b"
     ckpt_load_path: str = "/lustre/pretrain/ckpt"
     ckpt_save_path: str = "/lustre/pretrain/ckpt"
 
     # dataset and dataloader
     use_dummy_dataset: bool = False
     data_path: str = "/lustre/data"
-    seq_length: int = 2048
+    #seq_length: int = 2048
+    seq_length: int = 8192
     sep_token: int = 1
     datasets: str = "lang=en/dataset=commoncrawl,lang=en/dataset=webhose,lang=en/dataset=github_clean,lang=de/dataset=wikipedia,lang=es/dataset=wikipedia,lang=fr/dataset=wikipedia,lang=ja/dataset=wikipedia,lang=pt/dataset=wikipedia,lang=en/dataset=wikimedia,lang=en/dataset=uspto,lang=en/dataset=pubmedcentral,lang=en/dataset=arxiv,lang=en/dataset=stackexchange,lang=en/dataset=PG19"
     weights: str = "7700,500,550,28,17,22,25,8,100,500,175,250,100,25"
