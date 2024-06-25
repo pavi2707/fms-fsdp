@@ -191,7 +191,7 @@ def main(**kwargs):
         source="hf",
         #distributed_strategy=cfg.sharding_strategy,
     )
-    #arch = "embedllama"
+    arch = "embedllama"
     model = model.bfloat16()
     #print(model)
     model.eval() #for testing 
