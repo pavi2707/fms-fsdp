@@ -214,9 +214,9 @@ def main(**kwargs):
         ),
     )
 
-    #tokenizer = tokenizers.get_tokenizer(cfg.model_path)
-    tokenizer = AutoTokenizer.from_pretrained("JackFram/llama-160m") #added
-    model = AutoModelForCausalLM.from_pretrained("JackFram/llama-160m") #added 
+    tokenizer = tokenizers.get_tokenizer(cfg.model_path)
+    #tokenizer = AutoTokenizer.from_pretrained("JackFram/llama-160m") #added
+    #model = AutoModelForCausalLM.from_pretrained("JackFram/llama-160m") #added 
     template = "Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n### Instruction:\n{}\n\n### Response:"
 
     prompt = template.format(
