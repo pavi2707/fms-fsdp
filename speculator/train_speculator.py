@@ -54,8 +54,8 @@ llama_160m_config = LLaMAConfig(
     nlayers=12,
     hidden_grow_factor=3.5,
     multiple_of=1024,
-    max_expected_seq_len=2048,'''
-)
+    max_expected_seq_len=2048,
+)'''
 llama_160m_config = LLaMAConfig(emb_dim=3072, nheads=12, nlayers=12,kvheads=12, max_expected_seq_len=2048,norm_eps=1e-06,activation_fn="silu")
 
 def _hf_sd_to_fms_sd(hf_sd: Mapping) -> Mapping:
