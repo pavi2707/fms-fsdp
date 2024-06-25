@@ -44,6 +44,7 @@ llama_3_config = LLaMAConfig(
     max_expected_seq_len=8192,
 )
 #llama-160m
+'''
 llama_160m_config = LLaMAConfig(
     src_vocab_size=32000,
     emb_dim=3072, #hidden_size
@@ -53,8 +54,9 @@ llama_160m_config = LLaMAConfig(
     nlayers=12,
     hidden_grow_factor=3.5,
     multiple_of=1024,
-    max_expected_seq_len=2048,
+    max_expected_seq_len=2048,'''
 )
+llama_160m_config = LLaMAConfig(emb_dim=3072, nheads=12, nlayers=12,kvheads=12, max_expected_seq_len=2048,norm_eps=1e-06,activation_fn="silu")
 
 def _hf_sd_to_fms_sd(hf_sd: Mapping) -> Mapping:
     replacements = [
@@ -176,12 +178,12 @@ def main(**kwargs):
         sharding_strategy_policy,
         apply_selective_ac,
         param_init_fn,
-    ) = get_policies(cfg, rank, GPTBigCodeBlock)
+    ) = get_policies(cfg, rank, LLaMABlock)
 
     # get base model
     model = get_model(
-        "embedgpt_bigcode",
-        "20b",
+        "embedllama",
+        "160m",
         #model_path=cfg.model_path,
         model_path=f"{cfg.model_path}/*.safetensors",
         device_type="cuda",
