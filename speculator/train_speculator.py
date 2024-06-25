@@ -43,6 +43,18 @@ llama_3_config = LLaMAConfig(
     multiple_of=1024,
     max_expected_seq_len=8192,
 )
+#llama-160m
+llama_160m_config = LLaMAConfig(
+    src_vocab_size=32000,
+    emb_dim=3072, #hidden_size
+    norm_eps=1e-06,
+    nheads=12,
+    kvheads=12,
+    nlayers=12,
+    hidden_grow_factor=3.5,
+    multiple_of=1024,
+    max_expected_seq_len=2048,
+)
 
 def _hf_sd_to_fms_sd(hf_sd: Mapping) -> Mapping:
     replacements = [
@@ -93,7 +105,7 @@ def _llama_factory_factory(config):
 
     return factory
 
-
+register_model("embedllama", "160m", _llama_factory_factory(llama_160m_config))
 register_model("embedllama", "7b", _llama_factory_factory(LLaMAConfig()))
 register_model("embedllama", "8b", _llama_factory_factory(llama_3_config))
 serialization.register_adapter("embedllama", "hf", _hf_sd_to_fms_sd)
