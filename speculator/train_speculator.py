@@ -90,7 +90,7 @@ def _hf_sd_to_fms_sd(hf_sd: Mapping) -> Mapping:
             # nheads is used in the transformation required for hf->fms
             # here we are using 128 as this value fits with all popular models
             #   7B, 13B, 70B to recover the number of heads
-            nheads = int(temp.size(0) / 128)
+            nheads = int(temp.size(0) / 64)
 
             temp = (
                 temp.view(nheads, 2, -1, temp.size(1))
