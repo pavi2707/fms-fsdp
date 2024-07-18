@@ -179,12 +179,12 @@ def main(**kwargs):
         sharding_strategy_policy,
         apply_selective_ac,
         param_init_fn,
-    ) = get_policies(cfg, rank, LLaMABlock)
+    ) = get_policies(cfg, rank, GPTBigCodeBlock)
 
     # get base model
     model = get_model(
-        "embedllama",
-        "160m",
+        "embedgpt_bigcode",
+        "20b",
         #model_path=cfg.model_path,
         model_path=f"{cfg.model_path}/*.safetensors",
         device_type="cuda",
