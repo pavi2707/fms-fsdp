@@ -187,7 +187,7 @@ def main(**kwargs):
         "20b",
         #model_path=cfg.model_path,
         #model_path=f"{cfg.model_path}/*.safetensors",
-        model_path=f"{cfg.model_path}/*.bin",
+        model_path=cfg.model_path,
         device_type="cuda",
         source="hf",
         #distributed_strategy=cfg.sharding_strategy,
