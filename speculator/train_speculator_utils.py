@@ -470,7 +470,8 @@ def _gpt_bigcode_factory_factory(config):
     return factory
 
 _gpt_bigcode_20b_config = GPTBigCodeConfig(
-    src_vocab_size=49152,
+  #  src_vocab_size=49152,
+    src_vocab_size=49160,
     emb_dim=6144,
     nheads=48,
     nlayers=52,
